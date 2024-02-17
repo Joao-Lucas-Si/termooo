@@ -19,8 +19,7 @@ export default function GameOverModal() {
                 context.reset()
                 play()
             }
-        }],
-        close
+        }]
     })
     return modal
 }

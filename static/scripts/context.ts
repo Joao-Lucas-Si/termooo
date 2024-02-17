@@ -81,6 +81,12 @@ export default {
     get completes() {
         return realContext.completes
     },
+    get configIsOpen() {
+        return realContext.configIsOpen
+    },
+    set configIsOpen(open) {
+        realContext.configIsOpen = open
+    },
     addComplete(complete: number) {
         realContext.completes.push(complete)
     }
@@ -91,6 +97,7 @@ const createContext = (): Context => ({
     tables: [],
     isWin: false,
     isLoss: false,
+    configIsOpen: false,
     word: ["", "", "", "", ""],
     responses: [],
     completes: []
@@ -101,6 +108,7 @@ interface Context {
     currentLine: number,
     isWin: boolean,
     isLoss: boolean,
+    configIsOpen: boolean,
     tables: HTMLSpanElement[][][],
     word: string[],
     responses: (string|latimWord)[],

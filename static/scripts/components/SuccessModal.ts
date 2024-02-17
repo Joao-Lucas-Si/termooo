@@ -23,8 +23,7 @@ export default function SuccessModal() {
                 title: "jogar de novo",
                 type: "positive"
             }
-        ],
-        close
+        ]
     })
 
     return modal

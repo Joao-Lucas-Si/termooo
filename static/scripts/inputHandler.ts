@@ -13,31 +13,12 @@ export default function inputHandler(e: KeyboardEvent) {
         for (let i=0; i < config.mode; i++) {
             const element = context.getCurrentSpan(i)
             element.textContent = character
-            context.setLetter(position as 0|1|2|3|4, character)
+            context.setLetter(position, character)
         }
         if (position < 4) context.currentLetter = position + 1
+        if (config.difficulty === "hard" && context.wordIsComplete) sendWord()
     }
-    else if (character === "ENTER" && context.wordIsComplete) {
-        const responseIndex = context.isValidResponse(context.word.join("").toLocaleLowerCase())
-        
-        if (responseIndex !== -1 && context.completes.length + 1 === context.responses.length && !context.completes.includes(responseIndex)) {
-            gameHandler.validateWord(context.currentLine)
-            context.isWin = true
-        }
-        else if (responseIndex !== -1) {
-            console.log(`${context.word.join("")}: ${!context.completes.includes(responseIndex)}`)
-            if (!context.completes.includes(responseIndex)) context.completes.push(responseIndex)
-            context.currentLine += 1
-            context.currentLetter = 0
-        }
-        else if (context.currentLine === config.attemptCount - 1) {
-            context.isLoss = true
-        }
-        else {
-            context.currentLine += 1
-            context.currentLetter = 0
-        }
-    }
+    else if (character === "ENTER" && context.wordIsComplete) sendWord()
     else if (character === "ARROWLEFT") {
         if (context.currentLetter > 0) context.currentLetter -= 1
     }
@@ -60,4 +41,29 @@ export default function inputHandler(e: KeyboardEvent) {
             context.setLetter(position, "")
         }
     }
+}
+
+function passLine(responseIndex?: number) {
+    if (responseIndex !== undefined && !context.completes.includes(responseIndex)) context.completes.push(responseIndex)
+    context.currentLine += 1
+    context.currentLetter = 0
+}
+
+function sendWord() {
+    const word = context.word.join("").toLocaleLowerCase()
+    const responseIndex = context.isValidResponse(word)
+    if (config.difficulty !== "hard" && !config.words.some(wr => typeof wr === "string" ? wr === word : wr.transformed === word)) {
+        alert(`a palavra "${word}" não existe`)
+    }
+    else if (responseIndex !== -1 && ((context.completes.length + 1 === context.responses.length && !context.completes.includes(responseIndex)) || (context.completes.length === context.responses.length))) {
+        console.log(context.currentLine)
+        gameHandler.validateWord(context.currentLine)
+        context.isWin = true
+    }
+    else if (responseIndex !== -1) passLine(responseIndex)
+    else if (context.currentLine === config.attemptCount - 1) {
+        gameHandler.validateWord(context.currentLine)
+        context.isLoss = true
+    }
+    else passLine()
 }

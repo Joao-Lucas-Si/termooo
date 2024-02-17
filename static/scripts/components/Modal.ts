@@ -1,6 +1,6 @@
 import Button from "./Button"
 
-export default function Modal({body, title, buttons, close}: {body: HTMLElement[], close: ()=> void, title: string, buttons: {
+export default function Modal({body, title, buttons, withClose, id}: {body: HTMLElement[], id?: string, withClose?: true, title: string, buttons: {
     title: string,
     action: ((modal: HTMLDivElement) => void)|(()=> void),
     type: "negative"|"positive"|"neutral"
@@ -8,6 +8,7 @@ export default function Modal({body, title, buttons, close}: {body: HTMLElement[
     
     const container = document.createElement("div")
     container.classList.add("modal")
+    if (id) container.id = id
     container.setAttribute("data-bs-backdrop", "static")
     container.setAttribute("data-bs-keyboard", "false")
     container.style.height = "100vh"
@@ -22,8 +23,14 @@ export default function Modal({body, title, buttons, close}: {body: HTMLElement[
     headerTitle.textContent = title
     headerTitle.classList.add("modal-title")
     header.append(
-        headerTitle,
-        //Button({ action: ()=> close(), title: "", type: "cancel" }),
+        ...(withClose ? [headerTitle, Button({ 
+          action: ()=>{}, 
+          title: "", 
+          type: "cancel", 
+          attrs: {
+            "data-bs-dismiss": "modal"
+          } 
+        })] : [headerTitle]),
     )
     const footerContainer = document.createElement("div")
     footerContainer.classList.add("modal-footer")

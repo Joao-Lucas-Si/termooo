@@ -27,7 +27,7 @@ export default {
                 letter.classList.remove("bg-transparent")
                 
                 letter.classList.add(
-                    responseValue[position].toUpperCase() === letter.textContent ? "bg-success" :
+                    (responseValue[position].toUpperCase() === letter.textContent && config.difficulty !== "hard") ? "bg-success" :
                     responseValue.includes(letter.textContent?.toLowerCase() ?? "") ? "bg-warning" :
                     "bg-danger"
                 )
@@ -47,5 +47,8 @@ export default {
     },
     toggleLossModal() {
         gameOverModal.style.display = context.isLoss ? "block" : "none"
-    }
+    },
+    toggleConfigModal() {
+        gameOverModal.style.display = context.configIsOpen ? "block" : "none"
+    },
 }
