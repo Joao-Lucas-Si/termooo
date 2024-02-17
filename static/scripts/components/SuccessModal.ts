@@ -13,6 +13,7 @@ export default function SuccessModal() {
     const modal = Modal({
         title: "Você ganhou",
         body: [message],
+        id: "win-modal",
         buttons: [
             {
                 action: () =>{

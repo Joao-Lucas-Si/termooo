@@ -90,9 +90,9 @@ export default function ConfigModal() {
             },
             {
                 action: () => {
-                    window.location.reload()
+                    window.location.href = "/"
                 },
-                title: "cancelar",
+                title: "resetar",
                 type: "negative"
             }
         ],

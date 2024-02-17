@@ -1,7 +1,6 @@
 import { latimWord } from "../../src"
 import config from "./config"
 import gameHandler from "./gameHandler"
-import { gameOverModal, winModal } from "./main"
 
 export default {
     get currentLetter() {

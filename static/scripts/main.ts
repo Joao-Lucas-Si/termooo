@@ -40,7 +40,12 @@ document.body.appendChild(gameOverModal)
 const configModal = ConfigModal()
 document.body.appendChild(configModal)
 
-export {winModal, gameOverModal, configModal, root}
+const winButton = document.querySelector<HTMLButtonElement>("#win-button")
+const lossButton = document.querySelector<HTMLButtonElement>("#loss-button")
+const dismissWinButton = document.querySelector<HTMLButtonElement>("#dismiss-win-button")
+const dismissLossButton = document.querySelector<HTMLButtonElement>("#dismiss-loss-button")
+
+export {winButton, dismissWinButton, lossButton, dismissLossButton, configModal, root}
 
 const resetBtn = document.querySelector<HTMLButtonElement>("#btn-reset")
 

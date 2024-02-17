@@ -1,6 +1,6 @@
 import config from "./config"
 import context from "./context"
-import { gameOverModal, winModal } from "./main"
+import { winButton, lossButton, dismissWinButton, dismissLossButton } from "./main"
 
 export default {
     removeCurrents() {
@@ -43,12 +43,9 @@ export default {
         `
     },
     toggleWinModal() {
-        winModal.style.display = context.isWin ? "block" : "none"
+        context.isWin ? winButton?.click(): dismissWinButton?.click()
     },
     toggleLossModal() {
-        gameOverModal.style.display = context.isLoss ? "block" : "none"
-    },
-    toggleConfigModal() {
-        gameOverModal.style.display = context.configIsOpen ? "block" : "none"
+        context.isLoss ? lossButton?.click() : dismissLossButton?.click()
     },
 }

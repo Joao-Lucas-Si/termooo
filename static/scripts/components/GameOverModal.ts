@@ -12,6 +12,7 @@ export default function GameOverModal() {
     const modal = Modal({
         title: "você perdeu",
         body: [message],
+        id: "loss-modal",
         buttons: [{
             type: "positive",
             title: "jogar de novo",
