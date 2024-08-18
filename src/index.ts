@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from "fs";
 import path from "path";
 import express from "express";
+import ServerlessHttp from "serverless-http";
 
 export interface portugueseWord {
   normal: string;
@@ -16,7 +17,7 @@ const portugueseCharacters = {
   á: "a",
   é: "e",
   è: "e",
-  ù:"u",
+  ù: "u",
   à: "a",
   ê: "e",
   í: "i",
@@ -56,8 +57,12 @@ server.get("/", (req, res) => {
     .send(readFileSync(path.join(__dirname, "/../static/index.html")));
 });
 
-const port = 6969;
+// rodar localmente
+// const port = 6969;
 
-server.listen(port, () => {
-  console.log(`servidor rodando na porta ${port}`);
-});
+// server.listen(port, () => {
+//   console.log(`servidor rodando na porta ${port}`);
+// });
+
+// hospedangem
+export const handler = ServerlessHttp(server);
