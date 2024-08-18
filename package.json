@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "test": "test"
+    "dev": "ts-node-dev src/index.ts"
   },
   "author": "",
   "license": "ISC",
