@@ -10,7 +10,7 @@ export interface portugueseWord {
 
 const server = express();
 
-server.use(express.static(path.join(__dirname, "/../static")));
+server.use(express.static("./static"));
 
 const portugueseCharacters = {
   ç: "c",
@@ -27,7 +27,7 @@ const portugueseCharacters = {
   ó: "o",
 };
 
-let words = readFileSync(path.join(__dirname, "../static/words.txt"))
+let words = readFileSync("./static/words.txt")
   .toString()
   .split(",")
   .map<portugueseWord | string>((word) => {
@@ -52,9 +52,7 @@ server.get("/words", (req, res) => {
 });
 
 server.get("/", (req, res) => {
-  res
-    .status(200)
-    .send(readFileSync(path.join(__dirname, "/../static/index.html")));
+  res.status(200).send(readFileSync("./static/index.html"));
 });
 
 // rodar localmente
